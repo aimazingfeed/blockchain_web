@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Web3 from 'web3';
+import Login from './../../components/Login';
+import Home from './../../components/Home';
 
-const Main = ()  => {
+const HomePageHandler = ()  => {
     const [isConnected, setIsConnected] = useState(false);
     const [currentAccount, setCurrentAccount] = useState(null);
     const [balance, setBalance] = useState(0);
@@ -25,5 +28,26 @@ const Main = ()  => {
 const onLogout = () => {
     setIsConnected(false);
 };
-
+    return(
+    <div>
+      <header className="main-header">
+        <h1>React &amp; Web3</h1>
+        <nav>
+          <ul>
+            <li>
+              <a href="/">{currentAccount}</a>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <main>
+        {!isConnected && <Login onLogin={onLogin} onLogout={onLogout} />}
+        {isConnected && (
+          <Home currentAccount={currentAccount} balance={balance} />
+        )}
+      </main>
+    </div>
+    )
 }
+
+export default HomePageHandler;
