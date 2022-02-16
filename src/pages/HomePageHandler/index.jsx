@@ -37,23 +37,11 @@ const onLogout = () => {
     setIsConnected(false);
 };
     return(
-    <div>
-      <header className="main-header">
-        <h1>React &amp; Web3</h1>
-        <nav>
-          <ul>
-            <li>
-              <a href="/">{currentAccount}</a>
-            </li>
-          </ul>
-        </nav>
-      </header>
-      <main>
+    <div style={{ marginTop: '4rem'}}>
         {!isConnected && <Login onLogin={onLogin} onLogout={onLogout} />}
         {isConnected && (
           <Home currentAccount={currentAccount} balance={balance} />
         )}
-      </main>
     </div>
     )
 }

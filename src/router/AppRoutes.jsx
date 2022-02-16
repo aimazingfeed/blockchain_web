@@ -1,9 +1,11 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePageHandler from '../pages/HomePageHandler';
+import AppBarComponent from '../components/AppBar/AppBarComponent';
 
 const AppRoutes = () => {
     return(
     <Router>
+        <AppBarComponent/>
         <Routes>
             <Route exact path="/" element={<HomePageHandler/>}/>
             <Route exact path="/map"/>
