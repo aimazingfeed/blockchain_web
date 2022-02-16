@@ -1,10 +1,13 @@
 import './App.css';
-import HomePageHandler from './pages/HomePageHandler'
+import AppBarComponent from './components/AppBar/AppBarComponent';
+import AppRoutes from './router/AppRoutes';
 
 function App() {
   return (
     <div className="App">
-      <HomePageHandler/>
+      <AppRoutes>
+        <AppBarComponent/>
+      </AppRoutes>
     </div>
   );
 }
