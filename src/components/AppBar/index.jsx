@@ -44,18 +44,21 @@ const AppBarComponent = () => {
     const [balance, setBalance] = useState(0);
     const onLogin = async (provider) => {
       const web3 = new Web3(provider);
-      const accounts = await web3.eth.getAccounts();
-      if (accounts.length === 0) {
-          console.log("Please connect to MetaMask!");
-      } else if (accounts[0] !== address) {
-        setAddress(accounts[0]);
-          const accBalanceEth = web3.utils.fromWei(
-          await web3.eth.getBalance(accounts[0]),
-          "ether"
-      );
-  
-      setBalance(Number(accBalanceEth).toFixed(6));
-      setIsConnected(true);
+      if (window.ethereum) {
+        const accounts = await web3.eth.getAccounts();
+        console.log(accounts);
+        if (accounts.length === 0) {
+            console.log("Please connect to MetaMask!");
+        } else if (accounts[0] !== address) {
+          setAddress(accounts[0]);
+            const accBalanceEth = web3.utils.fromWei(
+            await web3.eth.getBalance(accounts[0]),
+            "ether"
+        );
+    
+        setBalance(Number(accBalanceEth).toFixed(6));
+        setIsConnected(true);
+        }
       }
   };
     useEffect(() => {
@@ -80,12 +83,15 @@ const AppBarComponent = () => {
                                 <Typography style={{color: "#e8e6e3"}}>  Домой  </Typography>
                         </ListItem>
                     </Link>
-                    <Link to="/lots" style={{ textDecoration: 'none' }}>
+                    {window.ethereum && 
+                      <Link to="/lots" style={{ textDecoration: 'none' }} disabled>
                         <ListItem button key="Lots">
                             <ListItemIcon> <FilterNone style={{color: "#9e9689"}}/> </ListItemIcon>
                             <Typography style={{color: "#e8e6e3"}}>  Лоты </Typography>
                         </ListItem>
                     </Link>
+}
+                    
                     <Link to="/terms" style={{ textDecoration: 'none' }}>
                     <ListItem button key="Terms">
                         <ListItemIcon> <Forum style={{color: "#9e9689"}}/> </ListItemIcon>

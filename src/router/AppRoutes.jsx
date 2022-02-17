@@ -10,7 +10,7 @@ const AppRoutes = () => {
         <Routes>
             <Route exact path="/" element={<HomePageHandler/>}/>
             <Route exact path="/map"/>
-            <Route exact path="/lots" element={<LotsPageHandler/>}/>
+            (window.ethereum ? <Route exact path="/lots" element={<LotsPageHandler/>}/> : null ) 
             <Route exact path="/terms"/>
             <Route exact path="/contacts"/>
             <Route exact path="/login"/>
