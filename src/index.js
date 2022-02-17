@@ -7,6 +7,7 @@ import store from './redux/ConfigStore'
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
+    <style>{'body { background-color: #0d1117; }'}</style>
       <App />
     </Provider>
 

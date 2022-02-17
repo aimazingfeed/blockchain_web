@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePageHandler from '../pages/HomePageHandler';
-import AppBarComponent from '../components/AppBar/AppBarComponent';
+import AppBarComponent from '../components/AppBar/';
+import LotsPageHandler from '../pages/Lots';
 
 const AppRoutes = () => {
     return(
@@ -9,7 +10,7 @@ const AppRoutes = () => {
         <Routes>
             <Route exact path="/" element={<HomePageHandler/>}/>
             <Route exact path="/map"/>
-            <Route exact path="/lots"/>
+            <Route exact path="/lots" element={<LotsPageHandler/>}/>
             <Route exact path="/terms"/>
             <Route exact path="/contacts"/>
             <Route exact path="/login"/>

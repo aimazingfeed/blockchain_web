@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  adress: null,
+  address: null,
   balance: 0,
   isConnected: false
 };
@@ -10,8 +10,8 @@ export const userDataSlice = createSlice({
   name: 'userData',
   initialState,
   reducers: {
-    setUserAdress: (state, action) => {
-      state.adress = action.payload;
+    setUserAddress: (state, action) => {
+      state.address = action.payload;
     },
     setUserBalance: (state, action) => {
       state.balance = action.payload;
@@ -23,7 +23,7 @@ export const userDataSlice = createSlice({
 });
 
 export const {
-    setUserAdress,
+    setUserAddress,
     setUserBalance,
     setUserIsConnected
 } = userDataSlice.actions;

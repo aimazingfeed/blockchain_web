@@ -1,21 +1,14 @@
 import { useState } from "react";
+import Button from '@mui/material/Button';
+import detectProvider from "../../configs";
 
-const Login = (props) => {
+const LoginButton = (props) => {
   const [isConnecting, setIsConnecting] = useState(false);
 
-  const detectProvider = () => {
-    let provider;
-    if (window.ethereum) {
-      provider = window.ethereum;
-    } else if (window.web3) {
-      provider = window.web3.currentProvider;
-    } else {
-      window.alert("No Ethereum browser detected! Check out MetaMask");
-    }
-    return provider;
-  };
+  
 
   const onLoginHandler = async () => {
+    
     const provider = detectProvider();
     if (provider) {
       if (provider !== window.ethereum) {
@@ -34,12 +27,18 @@ const Login = (props) => {
 
   return (
     <div>
-      <button onClick={onLoginHandler}>
+      <Button 
+        onClick={onLoginHandler}
+        variant="contained"
+        color="secondary"
+        sx={{
+          width: '6.3625rem'
+        }}
+      >
         {!isConnecting && "Connect"}
-        {isConnecting && "Loading..."}
-      </button>
+      </Button>
     </div>
   );
 };
 
-export default Login;
+export default LoginButton;
