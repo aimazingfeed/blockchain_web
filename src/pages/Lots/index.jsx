@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 import detectProvider from '../../configs';
 import jsonAbi from '../../contract/rentContract.json';
 import { contractAddress } from '../../contract/contractAddress';
@@ -7,8 +8,9 @@ import Web3 from 'web3';
 const LotsPageHandler = ()  => {
   const provider = detectProvider();
   const [web3, setWeb3] = useState(undefined);
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState();
   const [count, setCount] = useState();
+  const [isConnected, setIsConnected] = useState(false);
   //setting up web3
   useMemo(() => {
     const detected = new Web3(provider);
@@ -50,20 +52,27 @@ const LotsPageHandler = ()  => {
           console.error()
         }
       }
+      setIsConnected(cards);
       setCards(cardsRender);
     }
     return getAllCards();
   }, [web3, count])
 
   return(
-    <div>
-    {(cards.map((item, index) => (
-      <h1>
-      {index}
-    </h1>
-    ))
-      
-    )}
+    <div style={{ color: 'white', display:'flex', flexDirection: 'column' }}>
+      { !isConnected && 
+      <div style={{ position: 'fixed', top: '50%', left: '50%'}}> 
+        <CircularProgress color="secondary" />
+      </div>
+      }
+    { cards &&
+      cards.map((item, index) => (
+        <h1 key={index} style={{  display: 'flex',justifyContent: 'center' }} >
+          Card №{index}
+        </h1>
+      ))
+    }
+
     </div>
     
   )
