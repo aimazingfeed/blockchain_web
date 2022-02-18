@@ -12,7 +12,7 @@ import { LocalPhone, Forum, FilterNone } from '@material-ui/icons';
 // Routing & Components
 import LoginButton from '../Login';
 import { useDispatch } from 'react-redux';
-import { setUserIsConnected, setUserAddress, setUserBalance } from '../../redux/store/userData/userDataSlice';
+import { setUserIsConnected, setUserAddress, setUserBalance } from '../../../redux/store/userData/userDataSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {

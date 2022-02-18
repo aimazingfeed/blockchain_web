@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from '@mui/material/Button';
-import detectProvider from "../../configs";
+import { DetectProvider } from "../../../configs";
 
 const LoginButton = (props) => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -9,7 +9,7 @@ const LoginButton = (props) => {
 
   const onLoginHandler = async () => {
     
-    const provider = detectProvider();
+    const provider = DetectProvider();
     if (provider) {
       if (provider !== window.ethereum) {
         console.error(

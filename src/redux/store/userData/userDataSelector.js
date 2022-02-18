@@ -1,6 +1,6 @@
 
 export const userDataAddressSelector =
-  (state) => state.userData.address;
+  (state) => state.userData;
 
 export const userDataBalanceSelector =
     (state) => state.userData.balance;
