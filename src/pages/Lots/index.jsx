@@ -1,41 +1,71 @@
-import React, { useEffect, useState } from 'react';
-import DetectProvider from '../../configs';
+import React, { useEffect, useMemo, useState } from 'react';
+import detectProvider from '../../configs';
 import jsonAbi from '../../contract/rentContract.json';
 import { contractAddress } from '../../contract/contractAddress';
 import Web3 from 'web3';
-import { Navigate } from 'react-router-dom';
-import detectProvider from '../../configs';
-import { useSelector } from 'react-redux';
-import { userDataIsConnectedSelector } from '../../redux/store/userData/userDataSelector'
 
 const LotsPageHandler = ()  => {
-  const detected = new Web3(DetectProvider());
-  const [web3, setWeb3] = useState(detected);
-  useEffect(() => {
+  const provider = detectProvider();
+  const [web3, setWeb3] = useState(undefined);
+  const [cards, setCards] = useState([]);
+  const [count, setCount] = useState();
+  //setting up web3
+  useMemo(() => {
+    const detected = new Web3(provider);
     setWeb3(detected);
-  }, [detected]);
-  // const isConnected = useSelector(userDataIsConnectedSelector);
-  // const [userIsConnected, setUserIsConnected] = useState(isConnected);
-  // useEffect(() => {
-  //   setUserIsConnected(isConnected)
-  // }, [isConnected]);
-  // console.log(userIsConnected);
-  const [cards, setCards] = useState();
-  const getContract = async (id) => {
-    if (window.ethereum) {
-      var RentContract = new web3.eth.Contract(jsonAbi, contractAddress);
-      var contract = await RentContract.methods.rentContracts(id).call();
-      return contract;
+  }, [provider]);
+  useEffect( () => {
+    let cardsRender = [];
+
+    const getContract = async (id) => {
+      if (window.ethereum && web3) {
+        var RentContract = new web3.eth.Contract(jsonAbi, contractAddress);
+        var contract = await RentContract.methods.rentContracts(id).call();
+        return contract;
+      } else if (!web3) {
+        console.log('No web3 available')
+      } else if (!window.ethereum) {
+        console.log(!window.ethereum)
+      }
     }
-    
-  }
+    const getContractsCount = async () => {
+      if (window.ethereum && web3) {
+        var RentContract = new web3.eth.Contract(jsonAbi, contractAddress);
+        var rentsCount = await RentContract.methods.getContractsLength().call();
+        return rentsCount;
+      } else {
+        console.log('No available')
+      }
+    }
+    const contractsCount = getContractsCount();
+    // console.log(contractsCount);
+    contractsCount.then((result) => setCount(result));
+    const getAllCards = async () => {
+      for (let i = 0; i < count; i++) {
+        try {
+          const contract = await getContract(i).then(resolve => { return resolve });
+          cardsRender.push(contract);
+          console.log(i, 'got')
+        } catch (error) {
+          console.error()
+        }
+      }
+      setCards(cardsRender);
+    }
+    return getAllCards();
+  }, [web3, count])
+
   return(
-    (detected && getContract(1) &&
-      <>
-        {getContract(1).imagePath}
-      </>
-      )
-   
+    <div>
+    {(cards.map((item, index) => (
+      <h1>
+      {index}
+    </h1>
+    ))
+      
+    )}
+    </div>
+    
   )
 }
 

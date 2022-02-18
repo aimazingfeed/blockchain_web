@@ -1,6 +1,3 @@
-// import detectEthereumProvider from '@metamask/detect-provider';
-import React, { useMemo } from "react";
-
 const detectProvider = () => {
     let provider;
     if (window.ethereum) {
@@ -12,5 +9,7 @@ const detectProvider = () => {
     }
     return provider;
 };
+
+
 
 export default detectProvider;
