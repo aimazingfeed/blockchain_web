@@ -3,10 +3,10 @@ import Button from '@material-ui/core/Button';
 
 
 
-const LotsCardActions = ({ address, hasEnded, isAuction, rentStatus, monthlyPrice, tenant, sign, claim}) => {
+const LotsCardActions = ({ address, hasEnded, isAuction, rentStatus, monthlyPrice, tenant, sign, claim, isConnected}) => {
     return(
         <CardActions>
-                <Button size="medium" color="primary" onClick={hasEnded ? ("") : (e => sign(e))}>
+                <Button size="medium" color="primary" onClick={sign}>
                     {isAuction ? 
                         (hasEnded ? "аукцион завершен" : `Предложить ${parseInt(monthlyPrice)/1e18} ETH`)  
                         : 
@@ -16,12 +16,12 @@ const LotsCardActions = ({ address, hasEnded, isAuction, rentStatus, monthlyPric
                 {
                     hasEnded ? (
                         tenant === address ? (
-                            <Button size="medium" color="primary" onClick={e => claim(e)}>
+                            <Button size="medium" color="primary" onClick={claim} >
                                 Подтвердить аренду
                             </Button> 
                         ) : null
                     ) : null
-                }
+                } 
                 
             </CardActions>
     )

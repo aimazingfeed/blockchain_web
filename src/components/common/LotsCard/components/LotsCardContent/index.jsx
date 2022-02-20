@@ -1,18 +1,12 @@
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
+import Countdown from "react-countdown";
+
+
+
 
 const LotsCardContent = ({imagePath, id, area, isAuction, hasEnded, auctionEndTime, tenant, auctionTick}) => {
-    // console.log(imagePath, id, area, isAuction, hasEnded, auctionEndTime, tenant, auctionTick);
-    const now = Date.now();
-
-    const dt = new Date((parseInt(auctionEndTime) - now))
-
-    let hr = dt.getHours()
-    let min = dt.getMinutes()
-    let sec = dt.getSeconds()
-
-    if (min < 10) min = "0"+min.toString()
-    if (sec < 10) sec = "0"+sec.toString()
+    console.log(Date.now())
     return(
         <CardContent>
                 <img src={imagePath} alt="rentImg" style={{display: "block", marginLeft: "auto", marginRight: "auto", marginBottom: "10px", width:"300px", height: "200px"}}/>
@@ -35,7 +29,7 @@ const LotsCardContent = ({imagePath, id, area, isAuction, hasEnded, auctionEndTi
                 </Typography>
                 {isAuction && !hasEnded ?
                 <Typography variant="body2" color="textSecondary" component="p" style={{color: "#a3a2a0"}}>
-                    Конец аукциона: {hr}:{min}:{sec} 
+                    <Countdown date={parseInt(auctionEndTime, 10)}> {null} </Countdown>
                 </Typography>
                 : ""}
                 {isAuction && !hasEnded ?

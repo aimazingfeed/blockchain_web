@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Button from '@mui/material/Button';
-import { DetectProvider } from "../../../configs";
+import { detectProvider } from "../../../configs";
+import LinearProgress from '@mui/material/LinearProgress';
 
 const LoginButton = (props) => {
   const [isConnecting, setIsConnecting] = useState(false);
@@ -9,7 +10,7 @@ const LoginButton = (props) => {
 
   const onLoginHandler = async () => {
     
-    const provider = DetectProvider();
+    const provider = detectProvider();
     if (provider) {
       if (provider !== window.ethereum) {
         console.error(
@@ -20,23 +21,26 @@ const LoginButton = (props) => {
       await provider.request({
         method: "eth_requestAccounts",
       });
-      setIsConnecting(false);
     }
     props.onLogin(provider);
   };
 
   return (
     <div>
-      <Button 
+      {!isConnecting ? (
+        <Button 
         onClick={onLoginHandler}
         variant="contained"
         color="secondary"
         sx={{
           width: '6.3625rem'
         }}
-      >
-        {!isConnecting && "Connect"}
-      </Button>
+        >
+          Connect
+        </Button>
+        ): (
+        <LinearProgress color="secondary" sx={{width: '6.3625rem'}}/>
+        ) }
     </div>
   );
 };

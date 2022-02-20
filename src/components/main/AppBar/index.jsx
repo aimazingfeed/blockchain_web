@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Web3 from 'web3';
-
+import Web3 from 'web3'
 // Material-Ui
 import { makeStyles } from '@material-ui/core/styles';
 import { Toolbar, Typography, ListItem, AppBar } from '@material-ui/core';
@@ -10,9 +9,13 @@ import HomeIcon from '@material-ui/icons/Home';
 import { LocalPhone, Forum, FilterNone } from '@material-ui/icons';
 
 // Routing & Components
-import LoginButton from '../Login';
+import LoginButton from '../../common/LoginButton';
 import { useDispatch } from 'react-redux';
-import { setUserIsConnected, setUserAddress, setUserBalance } from '../../../redux/store/userData/userDataSlice';
+import { 
+  setUserIsConnected,
+  setUserAddress,
+  setUserBalance 
+  } from '../../../redux/store/userData/userDataSlice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +39,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const AppBarComponent = () => {
     const classes = useStyles();
     const dispatch = useDispatch();
@@ -44,9 +48,8 @@ const AppBarComponent = () => {
     const [balance, setBalance] = useState(0);
     const onLogin = async (provider) => {
       const web3 = new Web3(provider);
-      if (window.ethereum) {
+      if (provider) {
         const accounts = await web3.eth.getAccounts();
-        console.log(accounts);
         if (accounts.length === 0) {
             console.log("Please connect to MetaMask!");
         } else if (accounts[0] !== address) {
