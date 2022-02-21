@@ -33,7 +33,6 @@ const LotsPageHandler = ()  => {
     setIsLoaded(cards.length.toString() === count)
   }, [cards, count])
   return(
-    // <RSC contentProps={{style: {paddingTop: '2rem', height: '100vh'}}}>
       <div 
         style={{ 
           overflow: 'hidden',
@@ -56,8 +55,7 @@ const LotsPageHandler = ()  => {
             )
           }
           
-      </div> 
-    // </RSC>
+      </div>
       
   )
 }

@@ -31,7 +31,6 @@ const LotsCardContent = ({imagePath, id, area, isAuction, hasEnded, date, tenant
                     <Typography variant="body2" style={{color: "#a3a2a0" }} >Площадь: {area} м</Typography>
                     <Typography style={{color: "#a3a2a0", fontSize: '0.5rem'}}> 2 </Typography>
                 </div>
-                {/* {!isOccupied && ( */}
                 <Typography variant="body2" color="textSecondary" style={{color: "#a3a2a0"}}>
                     Статус: 
                     {
@@ -43,7 +42,6 @@ const LotsCardContent = ({imagePath, id, area, isAuction, hasEnded, date, tenant
                         (rentStatus)
                     }
                 </Typography>
-                {/* )} */}
                 {isAuction && !hasEnded && (
                     <Typography variant="body2" color="textSecondary" style={{color: "#a3a2a0"}}>
                         <Countdown date={date} renderer={EndAuction}/>

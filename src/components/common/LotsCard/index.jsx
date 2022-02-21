@@ -12,6 +12,7 @@ import {
 
 
 const LotsCard = (item) => {
+  console.log(item.index+1, item.item)
   const address = useSelector(userDataAddressSelector)
   const isConnected = useSelector(userDataIsConnectedSelector)
   const now = Date.now()
@@ -50,7 +51,6 @@ const LotsCard = (item) => {
             );
           } catch (error) {
             console.error(error)
-            // alert('Вы не подтвердили транзакцию')
           }
           
         }

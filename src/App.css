@@ -7,20 +7,24 @@ html, body, #root {
 .App {
   height: 100%;
   width: 100%;
-  /* overflow: hidden; */
+  scrollbar-width: none;
+  scrollbar-color: #0A4C95 #C2D2E4;
+}
+
+.scroller {
+  overflow-y: scroll;
+  scrollbar-color: #0A4C95 #C2D2E4;
 }
 
 body::-webkit-scrollbar {
-  width: 0;               /* width of the entire scrollbar */
+  width: 0;
 }
 
 body::-webkit-scrollbar-track {
-  background: transparent;        /* color of the tracking area */
+  background: transparent;
 }
 
 body::-webkit-scrollbar-thumb {
-  /* background-color: #9c27b0;    // color of the scroll thumb */
   border-radius: 20px;
-  height: 20vh;       /* roundness of the scroll thumb */
-  /* creates padding around scroll thumb */
+  height: 20vh;
 }

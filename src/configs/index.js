@@ -40,10 +40,13 @@ export const getContract = async (web3) => {
 
 export const getContractsCount = async (web3) => {
     if (window.ethereum && web3) {
-        var RentContract = new web3.eth.Contract(jsonAbi, contractAddress);
-        var rentsCount = await RentContract.methods.getContractsLength().call();
+        try {
+            var RentContract = new web3.eth.Contract(jsonAbi, contractAddress);
+            var rentsCount = await RentContract.methods.getContractsLength().call();
+        } catch (err) {
+            alert('Please, choose the Kovan test network')
+            console.error(err)
+        }
         return rentsCount;
-    } else {
-        console.log('No web3 or window.ethereum available')
     }
 }
