@@ -7,9 +7,9 @@ import LotsCard from '../../components/common/LotsCard'
 const LotsPageHandler = ()  => {
   const provider = detectProvider();
   const web3 = GetWeb3(provider);
-  const [cards, setCards] = useState();
+  const [cards, setCards] = useState([]);
   const [count, setCount] = useState();
-  const [isConnected, setIsConnected] = useState(false)
+  const [isLoaded, setIsLoaded] = useState(false)
   useEffect( () => {
     let cardsRender = [];
     const contractsCount = getContractsCount(web3);
@@ -25,27 +25,40 @@ const LotsPageHandler = ()  => {
           console.error()
         }
       }
-      setIsConnected(cards);
       setCards(cardsRender);
     }
     return getAllCards();
   }, [web3, count])
+  useEffect(()=> {
+    setIsLoaded(cards.length.toString() === count)
+  }, [cards, count])
   return(
-    <div style={{ color: 'white', display:'flex', flexDirection: 'column' }}>
-      { !isConnected && 
-      <div style={{ position: 'fixed', top: '50%', left: '50%'}}> 
-        <CircularProgress color="secondary" />
-      </div>
-      }
-    { cards &&
-      cards.map((item, index) => (
-        <LotsCard key={index} index={index} item={item}/>
-      )
-      )
-    }
+    // <RSC contentProps={{style: {paddingTop: '2rem', height: '100vh'}}}>
+      <div 
+        style={{ 
+          overflow: 'hidden',
+          display:'flex',
+          flexWrap: 'wrap',
+          boxSizing: 'border-box',
+          justifyContent: 'center',
+          }}>
 
-    </div>
-    
+          { !isLoaded && 
+          <div style={{ position: 'fixed', top: '50%', left: '50%', zIndex: '1000'}}> 
+            <CircularProgress color="secondary" />
+          </div>
+          }
+
+          { cards &&
+            cards.map((item, index) => (
+                <LotsCard key={index} index={index} item={item}/>
+            )
+            )
+          }
+          
+      </div> 
+    // </RSC>
+      
   )
 }
 

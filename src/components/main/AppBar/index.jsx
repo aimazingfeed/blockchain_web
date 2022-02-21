@@ -7,6 +7,10 @@ import { Toolbar, Typography, ListItem, AppBar } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import HomeIcon from '@material-ui/icons/Home';
 import { LocalPhone, Forum, FilterNone } from '@material-ui/icons';
+import useScrollTrigger from '@mui/material/useScrollTrigger';
+import Box from '@mui/material/Box';
+import Zoom from '@mui/material/Zoom';
+import CssBaseline from '@mui/material/CssBaseline';
 
 // Routing & Components
 import LoginButton from '../../common/LoginButton';
@@ -17,7 +21,7 @@ import {
   setUserBalance 
   } from '../../../redux/store/userData/userDataSlice';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     backgroundColor: '#161b22'
@@ -39,6 +43,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+// TODO: Вынести в login button
+function LoginScroll(props) {
+  const { children, window } = props;
+  const trigger = useScrollTrigger({
+  target: window ? window() : undefined,
+  disableHysteresis: true,
+  threshold: 100,
+});
+return (
+  <Zoom in={trigger}>
+    <Box
+      role="presentation"
+      sx={{ position: 'fixed', bottom: 16, right: 16, zIndex: '10000' }}
+    >
+      {children}
+    </Box>
+  </Zoom>
+);
+}
 
 const AppBarComponent = () => {
     const classes = useStyles();
@@ -74,6 +97,8 @@ const AppBarComponent = () => {
       setIsConnected(false);
   };
     return(
+      <div>
+        <CssBaseline />
         <AppBar className={classes.root} position="relative">
             <Toolbar>
                 <Link to="/" style={{ textDecoration: 'none' }}>
@@ -86,14 +111,15 @@ const AppBarComponent = () => {
                                 <Typography style={{color: "#e8e6e3"}}>  Домой  </Typography>
                         </ListItem>
                     </Link>
-                    {window.ethereum && 
-                      <Link to="/lots" style={{ textDecoration: 'none' }} disabled>
-                        <ListItem button key="Lots">
-                            <ListItemIcon> <FilterNone style={{color: "#9e9689"}}/> </ListItemIcon>
-                            <Typography style={{color: "#e8e6e3"}}>  Лоты </Typography>
-                        </ListItem>
-                    </Link>
-}
+                    {
+                      window.ethereum && 
+                        <Link to="/lots" style={{ textDecoration: 'none' }} disabled>
+                          <ListItem button key="Lots">
+                              <ListItemIcon> <FilterNone style={{color: "#9e9689"}}/> </ListItemIcon>
+                              <Typography style={{color: "#e8e6e3"}}>  Лоты </Typography>
+                          </ListItem>
+                        </Link>
+                    }
                     
                     <Link to="/terms" style={{ textDecoration: 'none' }}>
                     <ListItem button key="Terms">
@@ -114,6 +140,12 @@ const AppBarComponent = () => {
                 )}
             </Toolbar>
         </AppBar>
+        <LoginScroll prop={onLogin}>
+          <>
+            {!isConnected && <LoginButton onLogin={onLogin} onLogout={onLogout} />}
+          </>
+        </LoginScroll>
+      </div>
     );
 }
 

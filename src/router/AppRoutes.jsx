@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePageHandler from '../pages/HomePageHandler';
 import AppBarComponent from '../components/main/AppBar/';
-import LotsPageHandler from '../pages/LotsPageHandler';
+import Lots from '../components/main/Lots';
 
 const AppRoutes = () => {
     return(
@@ -10,7 +10,7 @@ const AppRoutes = () => {
         <Routes>
             <Route exact path="/" element={<HomePageHandler/>}/>
             <Route exact path="/map"/>
-            ({window.ethereum ? (<Route exact path="/lots" element={<LotsPageHandler/>}/>)
+            ({window.ethereum ? (<Route exact path="/lots" element={<Lots/>}/>)
             : null }) 
             <Route exact path="/terms"/>
             <Route exact path="/contacts"/>

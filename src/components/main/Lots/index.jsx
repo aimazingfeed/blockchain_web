@@ -1,8 +1,8 @@
+import LotsPageHandler from '../../../pages/LotsPageHandler'
+
 const Lots = (props) => {
     return (
-      <div>
-        
-      </div>
+      <LotsPageHandler/>
     );
   };
   export default Lots;
